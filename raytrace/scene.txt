@@ -1,0 +1,107 @@
+/////////////////////////////////////////
+// Second version of the scene file format
+// 
+// - It allows you to add comments like this one
+// - Syntax itself is hopefully self explanatory
+// - Name of the objects and attributes are defined inside the executable
+
+///////////////////////////////////////
+//    Global scene and viewpoint     //
+/////////////////////////////////////// 
+
+Scene 
+{
+  // make sure the version and the executable match !
+  Version.Major = 1;
+  Version.Minor = 1;
+  // output image dimension
+  Image.Width = 640; 
+  Image.Height = 480;   
+  // Count the objects in the scene
+  // description will follow
+  NumberOfMaterials = 4; 
+  NumberOfSpheres = 3;
+  NumberOfLights = 2; 
+}
+
+///////////////////////////////////////
+//         List of materials         //
+/////////////////////////////////////// 
+Material0
+{
+  Diffuse = 1.0, 1.0, 0.0;
+  Reflection = 0.5; 
+  
+  Specular = 1.0, 1.0, 1.0;  
+  Power = 60;
+}
+Material1
+{
+  Diffuse = 0.0, 1.0, 1.0;
+  Reflection = 0.75;  
+  
+  Specular = 1.0, 1.0, 1.0;  
+  Power = 60;
+}
+Material2
+{
+  Diffuse = 1.0, 0.0, 1.0;
+  Reflection = 0.25;  
+
+  Specular = 1.0, 1.0, 1.0;  
+  Power = 60; 
+}
+Material3
+{
+  Diffuse = 1.0, 1.0, 1.0;
+  Reflection = 0.0;
+
+  Specular = 1.0, 1.0, 1.0;  
+  Power = 1; 
+}
+
+///////////////////////////////////////
+//         List of spheres           //
+/////////////////////////////////////// 
+Sphere0
+{
+  Center = 100.0, 290.0, -200.0;  
+  Size = 100.0;
+  Material.Id = 0;
+}
+
+Sphere1
+{
+  Center = 407.0, 290.0, 0.0;
+  Size = 100.0;
+  Material.Id = 1;
+}
+
+Sphere2
+{
+  Center = 520.0, 100.0, 0.0;  
+  Size = 100.0;
+  Material.Id = 2;
+}
+
+Sphere3
+{
+  Center = 320.0, 240.0, 1000.0;  
+  Size = 1000.0;
+  Material.Id = 3;
+}
+
+///////////////////////////////////////
+//         List of lights            //
+/////////////////////////////////////// 
+Light0
+{
+  Position = 0.0, 240.0, -100.0;
+  Intensity = 2.0, 2.0, 2.0 ;
+}
+Light1
+{
+  Position = 640.0, 240.0, -10000.0;
+  Intensity = 0.6, 0.7, 1.0;
+}
+
