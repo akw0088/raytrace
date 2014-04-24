@@ -27,7 +27,9 @@ using namespace std;
 #include "Raytrace.h"
 #include "Scene.h"
 #include "Srgb.h"
+
 #include <windows.h> // for RGB macro
+#include <omp.h>
 
 bool hitSphere(const ray &r, const sphere& s, float &t)
 {
@@ -221,6 +223,8 @@ color addRay(ray viewRay, scene &myScene)
 
 bool draw(scene &myScene, int *pixel)
 {
+	#pragma omp parallel num_threads(8)
+	{
 	#pragma omp for
 	for (int y = 0; y < myScene.sizey; ++y)
 	{
@@ -254,6 +258,7 @@ bool draw(scene &myScene, int *pixel)
 
 			pixel[y * myScene.sizex + x] = RGB(min(output.blue*255.0f,255.0f), min(output.green*255.0f, 255.0f), min(output.red*255.0f, 255.0f));
 		}
+	}
 	}
 	return true;
 }

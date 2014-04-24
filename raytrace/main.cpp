@@ -120,6 +120,7 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 		int start, end;
 
 		start = GetTickCount();
+
 		if (!draw(myScene, pixel))
 		{
 			printf("Failure when creating the image file.\n");

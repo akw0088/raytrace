@@ -11,6 +11,7 @@
 #include <errno.h>
 #include <io.h>
 
+#include <omp.h>
 
 #include "Config.h"
 #include "Def.h"
