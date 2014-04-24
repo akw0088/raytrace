@@ -20,60 +20,12 @@
 #ifndef __DEF_H
 #define __DEF_H
 
+#include "vector.h"
+
 const double PIOVER180 = 0.017453292519943295769236907684886;
 
-struct point
-{
-	float x, y, z;
-};
 
-struct vec3
-{
-	float x, y, z;
-
-    vec3& operator += (const vec3 &v2){
-	    this->x += v2.x;
-        this->y += v2.y;
-        this->z += v2.z;
-	    return *this;
-    }
-};
-
-inline point operator + (const point&p, const vec3 &v){
-	point p2={p.x + v.x, p.y + v.y, p.z + v.z };
-	return p2;
-}
-
-inline point operator - (const point&p, const vec3 &v){
-	point p2={p.x - v.x, p.y - v.y, p.z - v.z };
-	return p2;
-}
-
-inline vec3 operator + (const vec3&v1, const vec3 &v2){
-	vec3 v={v1.x + v2.x, v1.y + v2.y, v1.z + v2.z };
-	return v;
-}
-
-inline vec3 operator - (const point&p1, const point &p2){
-	vec3 v={p1.x - p2.x, p1.y - p2.y, p1.z - p2.z };
-	return v;
-}
-
-inline vec3 operator * (float c, const vec3 &v)
-{
-	vec3 v2={v.x *c, v.y * c, v.z * c };
-	return v2;
-}
-
-inline vec3 operator - (const vec3&v1, const vec3 &v2){
-	vec3 v={v1.x - v2.x, v1.y - v2.y, v1.z - v2.z };
-	return v;
-}
-
-inline float operator * (const vec3&v1, const vec3 &v2 ) {
-	return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
-}
-
+typedef vec3 point;
 
 
 struct color

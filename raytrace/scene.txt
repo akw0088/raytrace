@@ -22,6 +22,7 @@ Scene
   NumberOfMaterials = 4; 
   NumberOfSpheres = 3;
   NumberOfLights = 2; 
+  NumberOfPlanes = 0;
 }
 
 ///////////////////////////////////////
@@ -53,10 +54,10 @@ Material2
 }
 Material3
 {
-  Diffuse = 1.0, 1.0, 1.0;
-  Reflection = 0.0;
+  Diffuse = 0.0, 0.0, 1.0;
+  Reflection = 0.5;
 
-  Specular = 1.0, 1.0, 1.0;  
+  Specular = 0.0, 0.0, 0.0;  
   Power = 1; 
 }
 
@@ -103,5 +104,15 @@ Light1
 {
   Position = 640.0, 240.0, -10000.0;
   Intensity = 0.6, 0.7, 1.0;
+}
+
+///////////////////////////////////////
+//         List of planes            //
+/////////////////////////////////////// 
+Plane0
+{
+  Center = 0.0, 0.0, 1000.0;
+  Normal = 0.0, 0.0, -1.0 ;
+  Material.Id = 3;
 }
 

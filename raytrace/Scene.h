@@ -27,6 +27,7 @@ struct scene
 	std::vector<material> materialContainer;
 	std::vector<sphere>   sphereContainer;
 	std::vector<light>    lightContainer;
+	std::vector<plane>    planeContainer;
 	int sizex, sizey;
 };
 

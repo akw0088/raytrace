@@ -36,6 +36,13 @@ struct sphere
 	int materialId;
 };
 
+struct plane
+{
+	vec3 n;
+	point p;
+	int materialId;
+};
+
 struct light
 {
 	point pos;

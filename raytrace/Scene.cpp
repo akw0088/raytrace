@@ -81,6 +81,14 @@ void GetSphere(const Config &sceneFile, sphere &currentSph)
 	currentSph.materialId = sceneFile.GetByNameAsInteger("Material.Id", 0); 
 }
 
+void GetPlane(const Config &sceneFile, plane &currentPlane)
+{
+	currentPlane.p = sceneFile.GetByNameAsPoint("Center", Origin); 
+	currentPlane.n = sceneFile.GetByNameAsPoint("Normal", Origin); 
+	currentPlane.materialId = sceneFile.GetByNameAsInteger("Material.Id", 0); 
+}
+
+
 void GetLight(const Config &sceneFile, light &currentLight)
 {
 	currentLight.pos = sceneFile.GetByNameAsPoint("Position", Origin); 
@@ -100,7 +108,8 @@ void GetLight(const Config &sceneFile, light &currentLight)
 
 bool init(char* inputName, scene &myScene)
 {
-	int nbMats, nbSpheres, nbLights, versionMajor, versionMinor;
+	int nbMats, nbSpheres, nbLights, nbPlanes;
+	int versionMajor, versionMinor;
 	int i;
 	Config sceneFile(inputName);
 
@@ -125,10 +134,12 @@ bool init(char* inputName, scene &myScene)
 	nbMats = sceneFile.GetByNameAsInteger("NumberOfMaterials", 0);
 	nbSpheres = sceneFile.GetByNameAsInteger("NumberOfSpheres", 0);
 	nbLights = sceneFile.GetByNameAsInteger("NumberOfLights", 0);
+	nbPlanes = sceneFile.GetByNameAsInteger("NumberOfPlanes", 0);
 
 	myScene.materialContainer.resize(nbMats);
 	myScene.sphereContainer.resize(nbSpheres);
 	myScene.lightContainer.resize(nbLights);
+	myScene.planeContainer.resize(nbPlanes);
 
 	for (i = 0; i < nbMats; ++i)
 	{   
@@ -174,6 +185,25 @@ bool init(char* inputName, scene &myScene)
 		}
 		GetLight(sceneFile, currentLight);
 	}
+
+	for (i = 0; i < nbPlanes; i++)
+	{   
+		plane &currentPlane = myScene.planeContainer[i];
+		SimpleString sectionName("Plane");
+		sectionName.append((unsigned long) i);
+		if (sceneFile.SetSection( sectionName ) == -1)
+		{
+			cout << "Mal formed Scene file : Missing Plane section." << endl;
+			return false;
+		}
+		GetPlane(sceneFile, currentPlane);
+		if (currentPlane.materialId >= nbMats)
+		{
+			cout << "Mal formed Scene file : Material Id not valid." << endl;
+			return false;
+		}
+	}
+
 
 	return true;
 }

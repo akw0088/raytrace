@@ -80,6 +80,7 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 	HDC		hdc;
 	PAINTSTRUCT	ps;
 	int		i;
+	static char	frame_time[80] = "";
 
 
      
@@ -116,17 +117,25 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 	}
 	case WM_TIMER:
 	{ 
+		int start, end;
 
+		start = GetTickCount();
 		if (!draw(myScene, pixel))
 		{
 			printf("Failure when creating the image file.\n");
 			return -1;
 		}
+		end = GetTickCount();
 
-		myScene.sphereContainer[0].pos.x += 2;
-		myScene.sphereContainer[1].pos.x -= 2;
-		myScene.sphereContainer[1].pos.y -= 2;
-		myScene.sphereContainer[2].pos.y += 2;
+		sprintf(frame_time, "%d ms", end - start);
+
+		if (myScene.sphereContainer.size() == 3)
+		{
+			myScene.sphereContainer[0].pos.x += 2;
+			myScene.sphereContainer[1].pos.x -= 2;
+			myScene.sphereContainer[1].pos.y -= 2;
+			myScene.sphereContainer[2].pos.y += 2;
+		}
 
 
 		InvalidateRect(hwnd, &rect, FALSE);
@@ -143,6 +152,8 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 		myScene.sizey = cyClient;
 
 
+
+
 		return 0;
 	case WM_KEYDOWN:
 		if (wParam == VK_ESCAPE)
@@ -155,6 +166,7 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_PAINT:
 		hdc = BeginPaint (hwnd, &ps);
 		draw_pixels(hdc, hdcMem, cxClient, cyClient);
+		DrawText(hdc, frame_time, strlen(frame_time), &rect, 0);
 		EndPaint(hwnd, &ps);
 		return 0;
 	     
